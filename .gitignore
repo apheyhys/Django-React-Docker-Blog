@@ -1,0 +1,17 @@
+/programsonline_backend.zip
+/dump_14-04-2021_20_53_10.sql
+/dump_21-04-2021_12_53_31.sql
+/media-backup (copy)/
+/programsonline_server_backup/
+/db-env/.env.db
+/db-env/.env.prod.db
+/programsonline_frontend/.env
+/programsonline_frontend/public/logo192.png
+/programsonline_frontend/public/logo512.png
+/programsonline_frontend/public/manifest.json
+/programsonline_frontend/public/favicon.ico
+/conf.d/nginx.conf
+/programsonline_backend/programsonline_backend/.env
+/programsonline_backend/db.json
+/programsonline_backend/.idea/
+/media-backup/
