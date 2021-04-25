@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
 import { useDispatch, useSelector } from "react-redux";
-import { APP_VK_AUTH, APP_OK_AUTH, APP_YANDEX_AUTH, APP_MAIL_AUTH } from "../../constants/constant";
+import { APP_VK_AUTH, APP_OK_AUTH, APP_YANDEX_AUTH, APP_MAIL_AUTH, APP_GOOGLE_AUTH, APP_FACEBOOK_AUTH } from "../../constants/constant";
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -233,7 +233,7 @@ export default function AuthDialog(props) {
                             className={classes.grid}
                         >
                             <FacebookLogin
-                                appId="454352881988093"
+                                appId={APP_FACEBOOK_AUTH}
                                 fields="name,email,picture"
                                 callback={callbackCatchFacebook}
                                 cssClass={classes.facebookButton}
@@ -244,7 +244,7 @@ export default function AuthDialog(props) {
                                 textButton=""
                             />
                             <GoogleLogin
-                                clientId="617235659841-se7l2b5rq7v170th58lm2093kdkjgtjr.apps.googleusercontent.com"
+                                clientId={APP_GOOGLE_AUTH}
                                 buttonText=""
                                 onSuccess={callbackCatchGoogle}
                                 cookiePolicy={'single_host_origin'}

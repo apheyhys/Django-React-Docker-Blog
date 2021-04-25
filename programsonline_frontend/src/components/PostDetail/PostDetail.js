@@ -149,7 +149,7 @@ export default function PostList(props) {
                 alignItems="center"
             >
                 <Paper className={classes.root} elevation={1}>
-                    <Typography variant="h4" component="h1">
+                    <Typography variant="h5" component="h1">
                         {result.title}
                     </Typography>
                     <img className={classes.image} src={result.image_preview} alt={result.image_preview_name} />

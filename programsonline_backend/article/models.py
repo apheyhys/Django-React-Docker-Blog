@@ -9,12 +9,11 @@ from hashlib import md5
 from uuslug import slugify
 from tinymce.models import HTMLField
 from subscriber.models import Subscriber
-from users.models import User
 from django.conf import settings
 
 
+# Auto generate name for File and Image fields
 def upload_to(instance, filename, unique=False):
-    """ Auto generate name for File and Image fields"""
     ext = op.splitext(filename)[1]
     name = str(instance.pk or '') + filename + (str(time()) if unique else '')
     filename = slugify(instance.image_preview_name)
@@ -45,7 +44,7 @@ class Article(models.Model):
         return self.comments.filter()
 
 
-
+# Signal after create article
 @receiver(post_save, sender=Article)
 def save_profile(sender, created, instance, **kwargs):
     if created:
@@ -62,7 +61,7 @@ def save_profile(sender, created, instance, **kwargs):
 
 
 class Comment(models.Model):
-    """Model For The Comments In The Blog Posts"""
+    """Model for the comments in the blog posts"""
     id = models.CharField(max_length=100, blank=True, unique=True, default=uuid.uuid4, primary_key=True)
     date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

@@ -224,7 +224,7 @@ SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [
     ('last_name', 'last_name'),
     ('email', 'email'),
     ('picture', 'photo'),
-    ('id', 'id'),  # 1-какие данные, 2-поле куда записывать
+    ('id', 'id'),  # 1-data, 2-data field
 ]
 
 SOCIAL_AUTH_VK_OAUTH2_EXTRA_DATA = ['photo_big', 'email']
@@ -240,7 +240,6 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.load_extra_data',
     'users.pipeline.add_extra_data_to_the_user',
     'social_core.pipeline.user.user_details',
-
 )
 
 OAUTH2_PROVIDER = {
@@ -258,7 +257,7 @@ CELERY_RESULT_SERIALIZER = 'json'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_HOST = env('EMAIL_HOST')
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587

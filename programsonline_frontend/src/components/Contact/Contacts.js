@@ -17,7 +17,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from '@material-ui/core/styles';
 import Alert from '@material-ui/lab/Alert';
 
-import { CREATE_CONTACT } from "../../constants/constant";
+import { CREATE_CONTACT, APP_RECAPTCHA_KEY } from "../../constants/constant";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -111,8 +111,7 @@ export default function Contact() {
           Если вы знаете интересный онлайн сервис, то сообщите нам о нем:
                 </Typography>
         <GoogleReCaptchaProvider
-          reCaptchaKey="6LcgIfgUAAAAAKHC4a_78QL5yolC0kIXsSYjqQTP"
-          // language=""
+          reCaptchaKey={APP_RECAPTCHA_KEY}
           useRecaptchaNet
         >
           <form noValidate autoComplete="off">

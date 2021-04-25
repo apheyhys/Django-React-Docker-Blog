@@ -26,7 +26,7 @@ function Main() {
                 <Route path='/privacy' component={Privacy} />
                 <Route path='/404' component={Error}/>
                 <Route path='/subscribed' component={EmailConfirmed} />
-                <Route path='/unsubscribed' component={Unsufsafbscribed} />
+                <Route path='/unsubscribed' component={Unsubscribed} />
                 <Route path='/:slug' component={PostDetail} />
             </Switch>
         </main>
