@@ -1,0 +1,27 @@
+const PATH = process.env.REACT_APP_PATH
+export const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
+export const BASE_PATH = PATH + '/article';
+export const PAGE_COUNT = 'offset=';
+export const TAG_PATH = PATH + '/tags-count/';
+export const TAG_NAME = 'tag=';
+export const SEARCH_NAME = 'search=';
+export const CONVERT_TOKEN = PATH + '/auth/convert-token';
+export const GET_USER_INFO = PATH + '/get-token/user';
+export const REFRESH_TOKEN = PATH + '/auth/token';
+export const VK_CODE_CONVERT = PATH + '/get-token/vk-api/';
+export const YANDEX_CODE_CONVERT = PATH + '/get-token/yandex-convert/';
+export const OK_CODE_CONVERT = PATH + '/get-token/ok-convert/';
+export const MAILRU_CODE_CONVERT = PATH + '/get-token/mail-convert/';
+export const CREATE_COMMENTS = PATH + '/article/create/';
+export const CREATE_LIKE_PATH = PATH + '/likes/like_create/';
+export const CREATE_DISLIKE_PATH = PATH + '/likes/dislike_create/';
+export const CREATE_RATING = PATH + '/star-rating/';
+export const ALL_ARTICLE_PATH = PATH + '/all-article';
+export const CREATE_CONTACT = PATH + '/create-contact/';
+export const ARTICLE_POPULAR_PATH = PATH + '/article-popular/';
+export const CREATE_SUBSCRIBER_PATH = PATH + '/subscriber/new-subscriber/';
+export const CLEAR_TOKEN = PATH + '/auth/invalidate-sessions';
+export const APP_VK_AUTH = process.env.REACT_APP_VK_AUTH;
+export const APP_OK_AUTH = process.env.REACT_APP_OK_AUTH;
+export const APP_YANDEX_AUTH = process.env.REACT_APP_YANDEX_AUTH;
+export const APP_MAIL_AUTH = process.env.REACT_APP_MAIL_AUTH;

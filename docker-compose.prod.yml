@@ -1,0 +1,79 @@
+version: '3.7'
+services:
+  db:
+    image: postgres:12.5-alpine
+    volumes:
+      - pg_data:/var/lib/postgresql/data/
+    env_file:
+      - ./db-env/.env.prod.db
+  django:
+    build:
+      context: programsonline_backend
+    command: sh -c "
+      python manage.py migrate &&
+      python manage.py collectstatic --noinput &&
+      python manage.py initadmin &&
+      gunicorn programsonline_backend.wsgi:application --bind 0.0.0.0:8000 --log-level debug"
+    volumes:
+      - static_volume:/usr/src/app/staticfiles
+      - media_volume:/usr/src/app/media
+    expose:
+      - 8000
+    env_file:
+      - programsonline_backend/programsonline_backend/.env
+    environment: 
+      - DEBUG=0
+    depends_on:
+      - db
+  redis:
+    image: redis:6.0.10-alpine
+  celery:
+    build:
+      context: programsonline_backend
+    command: celery -A article worker --loglevel=INFO --uid=nobody
+    depends_on:
+      - django
+      - redis
+  react:
+    container_name: react
+    build:
+      context: programsonline_frontend
+    volumes:
+      - react-build:/usr/src/app/build
+    environment:
+      - HTTPS=true
+    expose:
+      - 3000
+
+  nginx:
+    image: nginx:1.19.7-alpine
+    restart: unless-stopped
+    volumes:
+      - ./conf.d:/etc/nginx/conf.d
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+      - static_volume:/usr/src/app/staticfiles
+      - media_volume:/usr/src/app/media
+      - react-build:/usr/src/app/build
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - django
+
+  certbot:
+    image: certbot/certbot
+    restart: unless-stopped
+    volumes:
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 5d & wait $${!}; done;'"
+
+
+volumes:
+  pg_data:
+  static_volume:
+  media_volume:
+  node-modules:
+  letsencrypt:
+  react-build:

@@ -1,0 +1,50 @@
+version: '3.7'
+services:
+  db:
+    image: postgres:12.5-alpine
+    volumes:
+       - pg_data:/var/lib/postgresql/data/
+    env_file:
+      - ./db-env/.env.db
+  django:
+    build:
+      context: programsonline_backend
+    command: sh -c "
+      python manage.py migrate &&
+      python manage.py initadmin &&
+      python manage.py runsslserver 0.0.0.0:8000"
+    volumes:
+      - media_volume:/usr/src/app/media
+    ports:
+      - 8000:8000
+    environment:
+      - DEBUG=1
+    depends_on:
+      - db
+  redis:
+    image: redis:6.0.10-alpine
+  celery:
+    build:
+      context: programsonline_backend
+    command: celery -A article worker -l INFO
+    depends_on:
+      - django
+      - redis
+  react:
+    container_name: react
+    build:
+      context: programsonline_frontend
+      dockerfile: Dockerfile.deploy
+    stdin_open: true
+    volumes:
+      - ./programsonline_frontend:/app/programsonline_frontend
+      - node-modules:/app/programsonline_frontend/node_modules
+    environment:
+      - HTTPS=true
+    ports:
+      - "3000:3000"
+
+volumes:
+  pg_data:
+  node-modules:
+  media_volume:
