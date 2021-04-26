@@ -1,7 +1,7 @@
 # Django-Rest React Blog
 SPA blog with DRF and React:
-authentications with social network, 
-reply to comment,
+authentications with social network,
+reply to comment, 
 subscriptions, 
 mail delivery,
 star rating,
