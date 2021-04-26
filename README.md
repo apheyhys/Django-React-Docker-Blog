@@ -1,24 +1,38 @@
-Docker compose project base with Django , PosgreSQL , Nginx , Gunicorn and Certbot. 
+# Django-Rest React Blog
+Blog with DRF and React:
+authentications with social network, 
+reply to comment,
+subscriptions, 
+mail delivery,
+star rating,
+likes/dislikes
 
-You can use this setup in both your development and production environments. Development setup uses python's webserver. Production setup uses gunicorn and nginx.
+### Stack:
+#### Backend: 
+- Django 
+- Django Rest Framework
+- Authorization - Oauth2 (social authentication)
+- Task Queue - Celery
+- Broker - Redis
+#### Frontend: 
+- React (React Hooks)
+- Redux
+- Material UI https://material-ui.com
+#### Deployment:
+- Docker / Docker-Compose 
+- Nginx
 
-# Setup Project
+Development setup uses django-sslserver. Production setup uses gunicorn and nginx.
 
-Before starting to run this project ***docker*** and ***docker-compose*** should be installed on your computer.
+# Usage
 
-## Installation
-
-- Docker Installation: https://docs.docker.com/v17.12/install/
-- Docker Compose Installation: https://docs.docker.com/compose/install/
+***docker*** and ***docker-compose*** must be installed on your computer.
 
 ## Configurations
-
-- Replace ***django_docker_setup*** your project's name
-- Replace ***sample_app*** with your app's name
-- Replace ***sample_database_name*** with your database name 
-- Replace ***example.com*** domain names in *data/nginx/conf_ssl.d/nginx.conf* and *init-letsencrypt* folders with your domain name(s).
-
-You can replace these names by using search and replace feature in your IDE or editor.
+- Create ***.env*** for Django in dir programsonline_backend/programsonline_backend/.env. For an example look at the file programsonline_backend/programsonline_backend/.env.example
+- Create ***.env*** for React in dir programsonline_frontend/.env. For an example look at the file programsonline_frontend/.env.example
+- Create ***.env.db*** for Database in dir db-env/.env.db. For an example look at the file db-env/.env.example
+- Create ***nginx.conf*** for Nginx server in dir conf.d/nginx.conf. For an example look at the file db-conf.d/nginx.conf.example
 
 ## Run Project
 
@@ -26,14 +40,6 @@ You can replace these names by using search and replace feature in your IDE or e
 
 ```
 docker-compose up
-```
-
-### Run project for production environment without Certbot
-
-**In case you don't have domain or you don't want to get SSL certificates for your domain(s) yet**,run the command below.
-
-```
-docker-compose -f docker-compose.prod.yml up
 ```
 
 ### Run project for production environment with Certbot
@@ -46,7 +52,7 @@ First make the script executable by command below,
 chmod u+x init-letsencrypt.sh 
 ```
 
-Then run the script,
+Replace Then run the script,
 
 ```
 ./init-letsencrypt.sh
@@ -55,5 +61,5 @@ Then run the script,
 This script will also start your containers. In case you down your containers, you can restart them by following command,
 
 ```
-docker-compose -f docker-compose.prod.ssl up
+docker-compose -f docker-compose.prod.yml up
 ```
