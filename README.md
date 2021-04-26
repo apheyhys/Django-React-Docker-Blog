@@ -1,11 +1,15 @@
 # Django-Rest React Blog
-Blog with DRF and React:
+SPA blog with DRF and React:
 authentications with social network, 
 reply to comment,
 subscriptions, 
 mail delivery,
 star rating,
-likes/dislikes
+likes/dislikes,
+search,
+popular article, 
+categories, 
+tags
 
 ### Stack:
 #### Backend: 
