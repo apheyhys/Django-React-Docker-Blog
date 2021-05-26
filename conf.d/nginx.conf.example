@@ -13,8 +13,21 @@ server {
 }
 
 server {
-    listen              443 ssl default_server;
-    server_name example.ru www.example.ru;
+    listen 443 ssl;
+    server_name www.example.ru;
+    server_tokens off;
+
+    ssl_certificate     /etc/letsencrypt/live/example.ru/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/example.ru/privkey.pem;
+
+    location / {
+        return 301 https://example.ru$request_uri;
+    }
+}
+
+server {
+    listen              443 ssl;
+    server_name example.ru;
     ssl_certificate     /etc/letsencrypt/live/example.ru/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/example.ru/privkey.pem;
 
