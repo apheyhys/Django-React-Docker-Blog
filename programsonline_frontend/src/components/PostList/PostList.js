@@ -152,7 +152,10 @@ export default function PostList() {
                         variant="outlined"
                         shape="rounded"
                         page={offset===0 ? 1 : offset / total_count + 1}
-                        onChange={(event, page) => offsetChange(page * total_count - total_count)}
+                        onChange={(event, page) => {
+                            offsetChange(page * total_count - total_count)
+                            window.scrollTo(0, 0);
+                        }}
                     />
                 }
             </Grid>
