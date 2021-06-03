@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'filebrowser',
     'rest_framework',
     'django_filters',
+    'easy_thumbnails',
     'oauth2_provider',
     'social_django',
     'rest_framework_social_oauth2',
@@ -158,6 +159,12 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
     'DEFAULT_METADATA_CLASS': 'rest_framework.metadata.SimpleMetadata'
+}
+
+THUMBNAIL_ALIASES = {
+    '': {
+        'list_preview': {'size': (600, 0), 'crop': True},
+    },
 }
 
 AUTHENTICATION_BACKENDS = (

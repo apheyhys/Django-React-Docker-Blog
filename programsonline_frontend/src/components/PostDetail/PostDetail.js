@@ -48,6 +48,11 @@ const useStyles = makeStyles((theme) => ({
     progressBox: {
         marginTop: theme.spacing(5),
         minWidth: "100%",
+    },
+    ads: {
+        marginTop: theme.spacing(1),
+        marginLeft: theme.spacing(1),
+        maxWidth: "645px",
     }
 }));
 
@@ -124,6 +129,24 @@ export default function PostList(props) {
             <Helmet>
                 <title>{result.title}</title>
                 <meta name="description" content={result.description} />
+                 <script type="text/javascript">
+                    {`(function(w, d, n, s, t) {
+                        w[n] = w[n] || [];
+                        w[n].push(function() {
+                            Ya.Context.AdvManager.render({
+                                blockId: "R-A-471640-2",
+                                renderTo: "yandex_rtb_R-A-471640-2",
+                                async: true
+                            });
+                        });
+                        t = d.getElementsByTagName("script")[0];
+                        s = d.createElement("script");
+                        s.type = "text/javascript";
+                        s.src = "//an.yandex.ru/system/context.js";
+                        s.async = true;
+                        t.parentNode.insertBefore(s, t);
+                    })(this, this.document, "yandexContextAsyncCallbacks");`}
+                </script>
             </Helmet>
             {result.length===0
                 &&
@@ -148,11 +171,12 @@ export default function PostList(props) {
                 justify="center"
                 alignItems="center"
             >
+                <div id="yandex_rtb_R-A-471640-2" className={classes.ads}></div>
                 <Paper className={classes.root} elevation={1}>
                     <Typography variant="h5" component="h1">
                         {result.title}
                     </Typography>
-                    <img className={classes.image} src={result.image_preview} alt={result.image_preview_name} />
+                    <img className={classes.image} src={result.image_preview_big} alt={result.image_preview_name} />
                     <Link href={result.url} target="_blank">
                        <Typography className={classes.link}>
                           {result.url}

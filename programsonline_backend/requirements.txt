@@ -23,6 +23,7 @@ django-sslserver==0.22
 django-tinymce4-lite==1.8.0
 django-uuslug==1.2.0
 djangorestframework==3.12.2
+easy-thumbnails==2.7.1
 gunicorn==20.0.4
 idna==2.10
 jsmin==2.2.2

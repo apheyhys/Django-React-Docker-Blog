@@ -5,6 +5,24 @@ from starrating.models import StarRating
 from django.db.models import Avg
 from likes.serializers import LikeSerializer, DislikeSerializer
 from starrating.serializers import StarRatingSerializer
+from easy_thumbnails.templatetags.thumbnail import thumbnail_url
+
+
+class ThumbnailSerializer(serializers.ImageField):
+    def __init__(self, alias, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.read_only = True
+        self.alias = alias
+
+    def to_representation(self, value):
+        if not value:
+            return None
+
+        url = thumbnail_url(value, self.alias)
+        request = self.context.get('request', None)
+        if request is not None:
+            return request.build_absolute_uri(url)
+        return url
 
 
 class RecursiveSerializer(serializers.ModelSerializer):
@@ -70,6 +88,11 @@ class ArticleSerializer(serializers.ModelSerializer):
     star_rating = serializers.SerializerMethodField()
     rating_count = serializers.SerializerMethodField()
     rating_owner = serializers.SerializerMethodField()
+    image_preview = ThumbnailSerializer(alias='list_preview')
+    image_preview_big = serializers.SerializerMethodField()
+
+    def get_image_preview_big(self, obj):
+        return self.context['request'].build_absolute_uri('/media/') + str(obj.image_preview)
 
     def get_comments(self, obj):
         queryset = Comment.objects.filter(post_id=obj.id, parent_id=None).order_by('-date')
@@ -113,6 +136,7 @@ class ArticleSerializer(serializers.ModelSerializer):
             'body',
             'url',
             'image_preview',
+            'image_preview_big',
             'image_preview_name',
             'comments',
             'comments_count',
