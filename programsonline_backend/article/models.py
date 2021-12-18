@@ -35,9 +35,10 @@ class Article(models.Model):
     image_preview_name = models.CharField(max_length=100, blank=True, null=True)
     views_count = models.IntegerField(default=0)
     description = models.CharField(max_length=200, blank=True)
+    published = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.title
+        return f'{self.title}   -  {self.publications_date}'
 
     @property
     def comments_list(self):

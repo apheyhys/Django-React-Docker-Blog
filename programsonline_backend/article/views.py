@@ -21,7 +21,7 @@ class ArticleResultsSetPagination(LimitOffsetPagination):
         self.count = None
 
     def get_paginated_response(self, data):
-        queryset = Article.objects.all().count()
+        queryset = Article.objects.filter(published=True).count()
 
         return Response({
             'count': self.count,
@@ -35,7 +35,7 @@ class ArticleResultsSetPagination(LimitOffsetPagination):
 
 
 class ListArticle(generics.ListAPIView):
-    queryset = Article.objects.all()
+    queryset = Article.objects.filter(published=True)
     serializer_class = ArticleSerializer
     pagination_class = ArticleResultsSetPagination
     filter_backends = [SearchFilter, DjangoFilterBackend, OrderingFilter]
@@ -52,16 +52,16 @@ class ListArticle(generics.ListAPIView):
 
 
 class ListAllArticle(generics.ListAPIView):
-    queryset = Article.objects.all()
+    queryset = Article.objects.filter(published=True)
     serializer_class = AllArticleSerializer
 
     def get_queryset(self):
-        queryset = Article.objects.all().order_by('-tag')
+        queryset = Article.objects.filter(published=True).order_by('-tag')
         return queryset
 
 
 class DetailArticle(APIView):
-    queryset = Article.objects.all()
+    queryset = Article.objects.filter(published=True)
     serializer_class = ArticleSerializer
     lookup_field = 'slug'
 
@@ -78,7 +78,7 @@ class DetailArticle(APIView):
 
 
 class ListTagsCounter(generics.ListAPIView):
-    queryset = Article.objects.all()
+    queryset = Article.objects.filter(published=True)
     serializer_class = TagsCountSerializer
     pagination_class = ArticleResultsSetPagination
 
@@ -101,5 +101,5 @@ class CommentCreate(APIView):
 
 
 class ListPopularArticle(generics.ListAPIView):
-    queryset = Article.objects.all().order_by('-views_count')[:5]
+    queryset = Article.objects.filter(published=True).order_by('-views_count')[:5]
     serializer_class = ArticlePopularSerializer
