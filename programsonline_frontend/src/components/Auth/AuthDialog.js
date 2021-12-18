@@ -77,7 +77,7 @@ const useStyles = makeStyles((theme) => ({
         height: 50,
         borderRadius: theme.spacing(1),
         marginRight: theme.spacing(1),
-        marginTop: 4,
+        marginTop: 5,
         paddingLeft: 0,
     },
     facebookButtonFocused: {
