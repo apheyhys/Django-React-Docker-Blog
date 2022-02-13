@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 10,
     marginRight: 10,
     [theme.breakpoints.down('md')]: {
-      display: "none"
+      maxWidth: 80,
     }
   },
   toolbar: {
@@ -115,9 +115,7 @@ export default function Header(props) {
     <AppBar position="relative" color="default">
       <YMInitializer accounts={[56192332]} />
       <Toolbar className={classes.toolbar}>
-        <Link to='/' onClick={() => setSearchState(true)}>
-          <img src={logo} alt="logo" className={classes.logo} />
-        </Link>
+
         <Box display={{ lg: 'none' }}>
           <IconButton onClick={toggleDrawer(1, true)}>
             <MenuIcon />
@@ -155,7 +153,12 @@ export default function Header(props) {
             </Fragment>
           </Drawer>
         </Box>
-          <Link to='/' onClick={() => setSearchState(true)}>
+             <Link to='/' onClick={() => setSearchState(true)}>
+          <img src={logo} alt="logo" className={classes.logo} />
+        </Link>
+
+          <Box display={{ xs: 'none', md: 'inline' }}>
+                      <Link to='/' onClick={() => setSearchState(true)}>
             <Button variant="text" className={classes.button} onClick={() => {
               dispatch(setSearchText(""))
               dispatch(addTag(""))
@@ -163,7 +166,6 @@ export default function Header(props) {
               Посты
             </Button>
           </Link>
-          <Box display={{ xs: 'none', md: 'inline' }}>
             <Link to='/allposts' onClick={() => {
               setSearchState(false)
               setSearchInput("")
